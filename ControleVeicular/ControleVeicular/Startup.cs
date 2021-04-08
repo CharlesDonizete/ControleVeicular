@@ -62,7 +62,7 @@ namespace ControleVeicular
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            serviceProvider.GetService<ApplicationContext>().Database.EnsureCreated();
+            serviceProvider.GetService<ApplicationContext>().Database.Migrate();
         }
     }
 }
