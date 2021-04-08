@@ -4,14 +4,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ControleVeicular.Migrations
 {
-    public partial class Modelo : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "AnuncioId",
-                table: "Marca",
-                nullable: true);
+            migrationBuilder.CreateTable(
+                name: "Marca",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Descricao = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Marca", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Modelo",
@@ -20,8 +28,7 @@ namespace ControleVeicular.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Descricao = table.Column<string>(nullable: false),
-                    MarcaId = table.Column<int>(nullable: false),
-                    AnuncioId = table.Column<int>(nullable: true)
+                    MarcaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,9 +47,8 @@ namespace ControleVeicular.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ModeloId = table.Column<int>(nullable: false),
-                    MarcaForeignKey = table.Column<int>(nullable: false),
-                    MarcaId = table.Column<int>(nullable: false),
+                    ModeloId = table.Column<int>(nullable: true),
+                    MarcaId = table.Column<int>(nullable: true),
                     Ano = table.Column<string>(nullable: false),
                     ValorCompra = table.Column<decimal>(nullable: false),
                     ValorVenda = table.Column<decimal>(nullable: false),
@@ -58,19 +64,14 @@ namespace ControleVeicular.Migrations
                         column: x => x.MarcaId,
                         principalTable: "Marca",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Anuncio_Modelo_ModeloId",
                         column: x => x.ModeloId,
                         principalTable: "Modelo",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Marca_AnuncioId",
-                table: "Marca",
-                column: "AnuncioId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Anuncio_MarcaId",
@@ -83,55 +84,21 @@ namespace ControleVeicular.Migrations
                 column: "ModeloId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Modelo_AnuncioId",
-                table: "Modelo",
-                column: "AnuncioId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Modelo_MarcaId",
                 table: "Modelo",
                 column: "MarcaId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Marca_Anuncio_AnuncioId",
-                table: "Marca",
-                column: "AnuncioId",
-                principalTable: "Anuncio",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Modelo_Anuncio_AnuncioId",
-                table: "Modelo",
-                column: "AnuncioId",
-                principalTable: "Anuncio",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Marca_Anuncio_AnuncioId",
-                table: "Marca");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Anuncio_Modelo_ModeloId",
-                table: "Anuncio");
+            migrationBuilder.DropTable(
+                name: "Anuncio");
 
             migrationBuilder.DropTable(
                 name: "Modelo");
 
             migrationBuilder.DropTable(
-                name: "Anuncio");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Marca_AnuncioId",
-                table: "Marca");
-
-            migrationBuilder.DropColumn(
-                name: "AnuncioId",
-                table: "Marca");
+                name: "Marca");
         }
     }
 }

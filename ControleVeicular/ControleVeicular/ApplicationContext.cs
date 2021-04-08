@@ -1,9 +1,5 @@
 ﻿using ControleVeicular.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ControleVeicular
 {
@@ -16,14 +12,14 @@ namespace ControleVeicular
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Marca>().HasKey(t => t.Id);
-            modelBuilder.Entity<Marca>().HasMany(t => t.Modelos).WithOne(t => t.Marca);
-            modelBuilder.Entity<Marca>().HasMany(t => t.Anuncios).WithOne(t => t.Marca);
+            //modelBuilder.Entity<Marca>().HasMany(t => t.Modelos).WithOne(t => t.Marca);
+            //modelBuilder.Entity<Marca>().HasMany(t => t.Anuncios).WithOne(t => t.Marca);
 
-            modelBuilder.Entity<Modelo>().HasKey(t => t.Id);
-            //modelBuilder.Entity<Modelo>().HasMany(t => t.Anuncios).WithOne(t => t.Modelo);
+            modelBuilder.Entity<Modelo>().HasKey(t => t.Id);            
+            //modelBuilder.Entity<Modelo>().HasOne(t => t.Marca).WithOne(t => t.Modelo);
 
-            modelBuilder.Entity<Anuncio>().HasKey(t => t.Id);
-            modelBuilder.Entity<Anuncio>().HasOne(t => t.Modelo).WithOne(t => t.Anuncio);
+            modelBuilder.Entity<Anuncio>().HasKey(t => t.Id);            
+            //modelBuilder.Entity<Anuncio>().HasOne(t => t.Modelo).WithOne(t => t.Anuncio);
             //modelBuilder.Entity<Anuncio>().HasOne(t => t.Marca).WithOne(t => t.Anuncio);
         }
     }

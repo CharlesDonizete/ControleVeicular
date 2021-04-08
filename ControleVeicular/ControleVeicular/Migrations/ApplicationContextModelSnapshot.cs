@@ -33,11 +33,9 @@ namespace ControleVeicular.Migrations
 
                     b.Property<DateTime>("DataVenda");
 
-                    b.Property<int>("MarcaForeignKey");
+                    b.Property<int?>("MarcaId");
 
-                    b.Property<int>("MarcaId");
-
-                    b.Property<int>("ModeloId");
+                    b.Property<int?>("ModeloId");
 
                     b.Property<string>("TipoCombustivel")
                         .IsRequired();
@@ -61,14 +59,10 @@ namespace ControleVeicular.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AnuncioId");
-
                     b.Property<string>("Descricao")
                         .IsRequired();
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AnuncioId");
 
                     b.ToTable("Marca");
                 });
@@ -79,16 +73,12 @@ namespace ControleVeicular.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AnuncioId");
-
                     b.Property<string>("Descricao")
                         .IsRequired();
 
                     b.Property<int>("MarcaId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AnuncioId");
 
                     b.HasIndex("MarcaId");
 
@@ -99,28 +89,15 @@ namespace ControleVeicular.Migrations
                 {
                     b.HasOne("ControleVeicular.Models.Marca", "Marca")
                         .WithMany("Anuncios")
-                        .HasForeignKey("MarcaId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("MarcaId");
 
                     b.HasOne("ControleVeicular.Models.Modelo", "Modelo")
                         .WithMany("Anuncios")
-                        .HasForeignKey("ModeloId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ControleVeicular.Models.Marca", b =>
-                {
-                    b.HasOne("ControleVeicular.Models.Anuncio", "Anuncio")
-                        .WithMany()
-                        .HasForeignKey("AnuncioId");
+                        .HasForeignKey("ModeloId");
                 });
 
             modelBuilder.Entity("ControleVeicular.Models.Modelo", b =>
                 {
-                    b.HasOne("ControleVeicular.Models.Anuncio", "Anuncio")
-                        .WithMany()
-                        .HasForeignKey("AnuncioId");
-
                     b.HasOne("ControleVeicular.Models.Marca", "Marca")
                         .WithMany("Modelos")
                         .HasForeignKey("MarcaId")
