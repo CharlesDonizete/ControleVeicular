@@ -1,4 +1,5 @@
 ﻿using ControleVeicular.Models;
+using ControleVeicular.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,16 @@ namespace ControleVeicular.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IMarcaRepository marcaRepository;
+
+        public HomeController(IMarcaRepository marcaRepository)
+        {
+            this.marcaRepository = marcaRepository;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            return View(marcaRepository.GetMarcas());
         }
 
         public IActionResult About()

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using ControleVeicular.Repositories;
 
 namespace ControleVeicular
 {
@@ -38,6 +39,9 @@ namespace ControleVeicular
 
             string connectionString = Configuration.GetConnectionString("Default");
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddTransient<IDataService, DataService>();
+            services.AddTransient<IMarcaRepository, MarcaRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +66,8 @@ namespace ControleVeicular
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            serviceProvider.GetService<ApplicationContext>().Database.Migrate();
+            serviceProvider.GetRequiredService<IDataService>().InicializaDB();
         }
     }
+
 }
