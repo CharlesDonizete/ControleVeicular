@@ -1,14 +1,56 @@
 ﻿@model List<Marca>
+<h3>Anúncios</h3>
 
 @{
     ViewData["Title"] = "Controle de Veículos";
 }
 
-@foreach(var marca in Model)
-{
-    <div>@marca.Descricao</div>
-}
+<div id="my-carousel" class="carousel slide" data-ride="carousel">
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
 
-<div>
-   <p> Produtos </p> 
+        @{
+            const int TAMANHO_PAGINA = 4;
+            int paginas = (int)Math.Ceiling((double)Model.Count() / TAMANHO_PAGINA);
+        }
+
+        @for (int pagina = 0; pagina < paginas; pagina++)
+        {
+
+            <div class="item @( pagina == 0 ? "active" : "")">
+                <div class="row">
+
+                    @{
+                        var marcasDaPagina = Model.Skip(pagina * pagina).Take(TAMANHO_PAGINA);
+                    }
+
+                    @foreach (var marca in marcasDaPagina)
+                    {
+                        <div class="col-md-3 col-sm-3 col-lg-3">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <img class="img-produto-carrossel" src="/images/Carros/Carro_@(marca.Id).jpg" />
+                                    <p>@marca.Id</p>
+                                </div>
+                                <div class="panel-footer produto-footer">
+                                    <div class="produto-nome">@marca.Descricao</div>
+                                    <div><h4><strong>@marca.Descricao</strong></h4></div>                                    
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#my-carousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#my-carousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
 </div>
