@@ -88,6 +88,9 @@ namespace ControleVeicular.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Descricao,Id")] Marca marca)
         {
+
+            //marca = _context.Marca.Where(m => m.Id == id).SingleOrDefault();
+
             if (id != marca.Id)
             {
                 return NotFound();

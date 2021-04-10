@@ -1,0 +1,36 @@
+[
+  {
+    "Id": "1",
+    "ModeloId": "1",
+    "MarcaId": "1",
+    "Ano": "2019",
+    "ValorCompra": "100000",
+    "ValorVenda": "150000",
+    "Cor": "Prata",
+    "TipoCombustivel": "Gasolina",
+    "DataVenda": "2021-01-01 00:00:00.0000000"
+  },
+  {
+    "Id": "2",
+    "ModeloId": "2",
+    "MarcaId": "1",
+    "Ano": "2020",
+    "ValorCompra": "200000",
+    "ValorVenda": "250000",
+    "Cor": "Prata",
+    "TipoCombustivel": "Gasolina",
+    "DataVenda": "2021-01-01 00:00:00.0000000"
+  },
+  {
+    "Id": "1",
+    "ModeloId": "3",
+    "MarcaId": "1",
+    "Ano": "2021",
+    "ValorCompra": "300000",
+    "ValorVenda": "350000",
+    "Cor": "Prata",
+    "TipoCombustivel": "Gasolina",
+    "DataVenda": "2021-01-01 00:00:00.0000000"
+  }
+
+]

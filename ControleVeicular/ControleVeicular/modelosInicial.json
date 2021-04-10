@@ -1,0 +1,17 @@
+[
+  {
+    "Id" :  "1",
+    "Nome": "Fit",
+    "MarcaId": "1"
+  },
+  {
+    "Id": "2",
+    "Nome": "WR-V",
+    "MarcaId": "1"
+  },
+  {
+    "Id": "3",
+    "Nome": "HR-V",
+    "MarcaId": "1"
+  }
+]

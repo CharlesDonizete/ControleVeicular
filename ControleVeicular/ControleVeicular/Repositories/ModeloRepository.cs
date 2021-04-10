@@ -9,14 +9,23 @@ namespace ControleVeicular.Repositories
 {
     public interface IModeloRepository
     {
-        void SaveModelos(List<ModeloJason> modeloJasons);
+        void SaveModelos(List<ModeloInicial> modeloJasons);
         IList<Modelo> GetModelos();
+        Modelo GetModelo(int Id);
     }
 
     public class ModeloRepository : BaseRepository<Modelo>,  IModeloRepository
     {
-        public ModeloRepository(ApplicationContext contexto) : base(contexto)
+        private readonly IMarcaRepository marcaRepository;
+
+        public ModeloRepository(ApplicationContext contexto, IMarcaRepository marcaRepository) : base(contexto)
         {
+            this.marcaRepository = marcaRepository;
+        }
+
+        public Modelo GetModelo(int Id)
+        {
+            return dbSet.Where(m => m.Id == Id).SingleOrDefault();
         }
 
         public IList<Modelo> GetModelos()
@@ -24,23 +33,28 @@ namespace ControleVeicular.Repositories
             return dbSet.ToList();
         }
 
-        public void SaveModelos(List<ModeloJason> modeloJasons)
+        public void SaveModelos(List<ModeloInicial> modelosIniciais)
         {
-            foreach (var modeloJason in modeloJasons)
+            foreach (var modeloJason in modelosIniciais)
             {
                 
-                if (!dbSet.Include(mo => mo.Marca).Where(m => m.Descricao == modeloJason.Nome).Any())
-                {
+                if (!dbSet.Where(m => m.Id == modeloJason.Id).Any())
+                {                    
+                    Marca marca = marcaRepository.GetMarca(modeloJason.MarcaId);
                     
-                    dbSet.Add(new Modelo(modeloJason.Nome,new Marca()));
+                    if (marca != null)
+                    {
+                        dbSet.Add(new Modelo(modeloJason.Nome, marca));
+                    }                    
                 }                
             }
 
             contexto.SaveChanges();
         }
     }
-    public class ModeloJason
+    public class ModeloInicial
     {
+        public int Id { get; set; }
         public string Nome { get; set; }
         public int MarcaId { get; set; }
     }

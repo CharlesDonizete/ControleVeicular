@@ -11,6 +11,7 @@ namespace ControleVeicular.Repositories
     {
         void SaveMarcas(List<MarcaJason> marcaJasons);
         IList<Marca> GetMarcas();
+        Marca GetMarca(int Id);
     }
 
     public class MarcaRepository : BaseRepository<Marca>,  IMarcaRepository
@@ -22,6 +23,11 @@ namespace ControleVeicular.Repositories
         public IList<Marca> GetMarcas()
         {
             return dbSet.ToList();
+        }
+
+        public Marca GetMarca(int Id)
+        {
+            return dbSet.Where(m => m.Id == Id).SingleOrDefault();
         }
 
         public void SaveMarcas(List<MarcaJason> marcaJasons)
@@ -36,7 +42,7 @@ namespace ControleVeicular.Repositories
             }
 
             contexto.SaveChanges();
-        }
+        }       
     }
     public class MarcaJason
     {
