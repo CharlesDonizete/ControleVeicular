@@ -29,7 +29,14 @@ textarea {
 }
 
 /* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
+/*@media screen and (max-width: 767px) {*/
+    /* Hide captions */
+    /*.carousel-caption {
+        display: none;
+    }
+}*/
+
+@media screen and (max-width: 900px) {
     /* Hide captions */
     .carousel-caption {
         display: none;
@@ -50,7 +57,7 @@ textarea {
 }
 
 .navbar-inverse {
-    background-color: #f8965d;
+    background-color: #705E78;
     border-color: white;
 }
 
@@ -70,6 +77,7 @@ textarea {
 
 .linha-produto {
     margin: 20px;
+    color: aqua;
 }
 
 .produto-nome {
@@ -79,8 +87,9 @@ textarea {
 }
 
 .produto-footer {
-    max-height: 140px;
+    max-height: 180px;
 }
 
 .produto-nome {
+    
 }

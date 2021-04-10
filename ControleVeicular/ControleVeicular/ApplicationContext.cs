@@ -12,15 +12,13 @@ namespace ControleVeicular
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Marca>().HasKey(t => t.Id);
-            //modelBuilder.Entity<Marca>().HasMany(t => t.Modelos).WithOne(t => t.Marca);
-            //modelBuilder.Entity<Marca>().HasMany(t => t.Anuncios).WithOne(t => t.Marca);
-
+           
             modelBuilder.Entity<Modelo>().HasKey(t => t.Id);            
-            //modelBuilder.Entity<Modelo>().HasOne(t => t.Marca).WithOne(t => t.Modelo);
-
-            modelBuilder.Entity<Anuncio>().HasKey(t => t.Id);            
-            //modelBuilder.Entity<Anuncio>().HasOne(t => t.Modelo).WithOne(t => t.Anuncio);
-            //modelBuilder.Entity<Anuncio>().HasOne(t => t.Marca).WithOne(t => t.Anuncio);
+         
+            modelBuilder.Entity<Anuncio>().HasKey(t => t.Id);
         }
+
+        public DbSet<ControleVeicular.Models.Marca> Marca { get; set; }
+        public DbSet<ControleVeicular.Models.Anuncio> Anuncio { get; set; }
     }
 }

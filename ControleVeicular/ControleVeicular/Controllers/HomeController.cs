@@ -11,36 +11,17 @@ namespace ControleVeicular.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IMarcaRepository marcaRepository;
+        private readonly IAnuncioRepository anuncioRepository;
 
-        public HomeController(IMarcaRepository marcaRepository)
+        public HomeController(IAnuncioRepository anuncioRepository)
         {
-            this.marcaRepository = marcaRepository;
+            this.anuncioRepository = anuncioRepository;
         }
 
         public IActionResult Index()
         {
-            return View(marcaRepository.GetMarcas());
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+            return View(anuncioRepository.GetAnuncios());
+        } 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

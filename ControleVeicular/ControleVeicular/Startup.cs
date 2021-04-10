@@ -37,11 +37,16 @@ namespace ControleVeicular
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddSession();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
             string connectionString = Configuration.GetConnectionString("Default");
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
 
             services.AddTransient<IDataService, DataService>();
             services.AddTransient<IMarcaRepository, MarcaRepository>();
+            services.AddTransient<IAnuncioRepository, AnuncioRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +63,7 @@ namespace ControleVeicular
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

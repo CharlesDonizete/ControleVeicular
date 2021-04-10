@@ -1,4 +1,5 @@
 ﻿using ControleVeicular.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,25 +7,32 @@ using System.Threading.Tasks;
 
 namespace ControleVeicular.Repositories
 {
-    public class MarcaRepository : IMarcaRepository
+    public interface IMarcaRepository
     {
-        private readonly ApplicationContext contexto;
+        void SaveMarcas(List<MarcaJason> marcaJasons);
+        IList<Marca> GetMarcas();
+    }
 
-        public MarcaRepository(ApplicationContext contexto)
+    public class MarcaRepository : BaseRepository<Marca>,  IMarcaRepository
+    {
+        public MarcaRepository(ApplicationContext contexto) : base(contexto)
         {
-            this.contexto = contexto;
         }
 
         public IList<Marca> GetMarcas()
         {
-            return contexto.Set<Marca>().ToList();
+            return dbSet.ToList();
         }
 
         public void SaveMarcas(List<MarcaJason> marcaJasons)
         {
             foreach (var marcaJason in marcaJasons)
             {
-                contexto.Set<Marca>().Add(new Marca(marcaJason.Nome));
+                
+                if (!dbSet.Where(m => m.Descricao == marcaJason.Nome).Any())
+                {
+                    dbSet.Add(new Marca(marcaJason.Nome));
+                }                
             }
 
             contexto.SaveChanges();

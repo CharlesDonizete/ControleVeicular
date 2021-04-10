@@ -1,4 +1,4 @@
-﻿@model List<Marca>
+﻿@model List<Anuncio>
 <h3>Anúncios</h3>
 
 @{
@@ -21,20 +21,24 @@
                 <div class="row">
 
                     @{
-                        var marcasDaPagina = Model.Skip(pagina * pagina).Take(TAMANHO_PAGINA);
+                        var anuciosDaPagina = Model.Skip(pagina * pagina).Take(TAMANHO_PAGINA);
                     }
 
-                    @foreach (var marca in marcasDaPagina)
+                    @foreach (var anuncio in anuciosDaPagina)
                     {
                         <div class="col-md-3 col-sm-3 col-lg-3">
                             <div class="panel panel-default">
                                 <div class="panel-body">
-                                    <img class="img-produto-carrossel" src="/images/Carros/Carro_@(marca.Id).jpg" />
-                                    <p>@marca.Id</p>
+                                    <img class="img-produto-carrossel" src="/images/Carros/Carro_@(anuncio.Id).jpg" />                                    
                                 </div>
                                 <div class="panel-footer produto-footer">
-                                    <div class="produto-nome">@marca.Descricao</div>
-                                    <div><h4><strong>@marca.Descricao</strong></h4></div>                                    
+                                    <div class="produto-nome"><strong>Marca:</strong> @anuncio.Marca.Descricao</div>
+                                    <div class="produto-nome"><strong>Modelo:</strong> @anuncio.Modelo.Descricao</div>
+                                    <div class="produto-nome"><strong>Ano:</strong> @anuncio.Ano</div>
+                                    <div class="produto-nome"><strong>Valor Compra:</strong> @anuncio.ValorCompra</div>
+                                    <div class="produto-nome"><strong>Combustível:</strong> @anuncio.TipoCombustivel</div>
+                                    <div class="produto-nome"><strong>Cor:</strong> @anuncio.Cor</div>
+                                    <div><h4><strong>Valor de venda: @anuncio.ValorVenda</strong></h4></div>
                                 </div>
                             </div>
                         </div>
