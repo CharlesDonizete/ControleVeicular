@@ -46,6 +46,7 @@ namespace ControleVeicular
 
             services.AddTransient<IDataService, DataService>();
             services.AddTransient<IMarcaRepository, MarcaRepository>();
+            services.AddTransient<IModeloRepository, ModeloRepository>();
             services.AddTransient<IAnuncioRepository, AnuncioRepository>();
         }
 

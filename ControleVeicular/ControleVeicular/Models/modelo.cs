@@ -15,11 +15,13 @@ namespace ControleVeicular.Models
         public int Id { get; protected set; }
     }
 
-    public class Marca : BaseModel
-    {
+    [DataContract]
+    public class Marca : BaseModel    {
+
         public Marca() { }
         
         [Required]
+        [DataMember]
         public string Descricao { get; private set; }               
 
         public List<Modelo> Modelos { get; private set; } = new List<Modelo>();

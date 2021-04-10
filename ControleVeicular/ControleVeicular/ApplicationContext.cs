@@ -6,6 +6,9 @@ namespace ControleVeicular
     public class ApplicationContext : DbContext
     {
         public ApplicationContext(DbContextOptions options) : base(options) { }
+        public DbSet<Marca> Marca { get; set; }
+        public DbSet<Anuncio> Anuncio { get; set; }
+        public DbSet<Modelo> Modelo { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -18,7 +21,6 @@ namespace ControleVeicular
             modelBuilder.Entity<Anuncio>().HasKey(t => t.Id);
         }
 
-        public DbSet<ControleVeicular.Models.Marca> Marca { get; set; }
-        public DbSet<ControleVeicular.Models.Anuncio> Anuncio { get; set; }
+      
     }
 }
